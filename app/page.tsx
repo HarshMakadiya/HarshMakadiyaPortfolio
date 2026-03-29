@@ -38,7 +38,7 @@ export default function Home() {
         </div>
 
 
-        <div className="relative pl-6">
+        <div className="relative pl-6 pr-6">
           <Hero />
           <SocialLinks />
           <About />
