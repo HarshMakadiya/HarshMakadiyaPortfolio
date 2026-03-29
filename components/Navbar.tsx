@@ -26,7 +26,7 @@ export function Navbar() {
                 href={`#${s}`}
                 className="font-mono text-xs text-muted-foreground/60 hover:text-foreground transition-colors"
               >
-                {s}
+                {s.charAt(0).toUpperCase() + s.slice(1)}
               </a>
             ))}
           </div>
@@ -37,7 +37,9 @@ export function Navbar() {
             className="h-8 w-8 border-border/60"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           >
-            {mounted && theme === "dark" ? (
+            {!mounted ? (
+              <span className="h-3.5 w-3.5" />
+            ) : theme === "dark" ? (
               <Sun className="h-3.5 w-3.5" />
             ) : (
               <Moon className="h-3.5 w-3.5" />

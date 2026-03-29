@@ -1,117 +1,175 @@
-import { MapPin, Mail, Github, Linkedin } from "lucide-react";
+"use client";
+
+import { useState } from "react";
+import { MapPin, Mail, Github, Linkedin, Phone, User, Briefcase, ArrowUpRight, X } from "lucide-react";
 import { personal } from "@/lib/data";
 
 export function Hero() {
-  return (
-    <section className="py-12 border-b border-border/50">
-      {/* Top row */}
-      <div className="flex items-start gap-5 mb-6">
-        {/* Avatar */}
-        <div className="relative flex-shrink-0">
-          <div className="w-[72px] h-[72px] rounded-full bg-gradient-to-br from-violet-500 via-purple-500 to-blue-500 flex items-center justify-center text-white font-serif text-2xl select-none shadow-lg shadow-violet-500/20">
-            HM
-          </div>
-          <span
-            className="absolute bottom-0.5 right-0.5 w-3 h-3 rounded-full bg-emerald-400 border-2 border-background animate-pulse"
-            title="Available for opportunities"
-          />
-        </div>
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
-        {/* Info */}
-        <div className="flex-1 min-w-0">
-          <h1 className="font-serif text-[2.1rem] leading-tight tracking-tight text-foreground mb-1">
-            {personal.name}
-          </h1>
-          <p className="text-sm text-muted-foreground mb-3">
-            {personal.role}{" "}
-            <span className="font-mono text-violet-400 text-[13px]">
-              @ {personal.company}
-            </span>
-          </p>
-
-          {/* Meta row */}
-          <div className="flex flex-wrap gap-x-4 gap-y-1.5">
-            <span className="flex items-center gap-1.5 font-mono text-xs text-muted-foreground/60">
-              <MapPin className="w-3 h-3" />
-              {personal.location}
-            </span>
-            <a
-              href={`mailto:${personal.email}`}
-              className="flex items-center gap-1.5 font-mono text-xs text-muted-foreground/60 hover:text-violet-400 transition-colors"
-            >
-              <Mail className="w-3 h-3" />
-              {personal.email}
-            </a>
-            <span className="font-mono text-xs text-muted-foreground/40">
-              {personal.pronouns}
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* Tagline */}
-      <blockquote className="border-l-2 border-violet-500 pl-4 py-2 bg-violet-500/5 rounded-r-lg">
-        <p className="text-sm text-muted-foreground italic leading-relaxed">
-          {personal.tagline}
-        </p>
-      </blockquote>
-    </section>
-  );
-}
-
-export function SocialLinks() {
-  const { github, linkedin, email, phone } = personal;
-
-  const links = [
+  const infoRows = [
     {
-      label: "GitHub",
-      href: github,
-      icon: <Github className="w-3.5 h-3.5" />,
+      icon: <Briefcase className="w-3.5 h-3.5" />,
+      content: (
+        <span className="font-mono text-sm text-foreground/80">
+          {personal.role}{" "}
+          <a
+            href={personal.companyUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="text-violet-400 hover:text-violet-300 hover:underline underline-offset-2 transition-colors"
+          >
+            @{personal.company}
+          </a>
+        </span>
+      ),
     },
     {
-      label: "LinkedIn",
-      href: linkedin,
-      icon: <Linkedin className="w-3.5 h-3.5" />,
+      icon: <MapPin className="w-3.5 h-3.5" />,
+      content: (
+        <span className="font-mono text-sm text-foreground/80">{personal.location}</span>
+      ),
     },
     {
-      label: "Email",
-      href: `mailto:${email}`,
       icon: <Mail className="w-3.5 h-3.5" />,
+      content: (
+        <a
+          href={`mailto:${personal.email}`}
+          className="font-mono text-sm text-foreground/80 hover:text-violet-400 transition-colors"
+        >
+          {personal.email}
+        </a>
+      ),
     },
     {
-      label: phone,
-      href: `tel:${phone.replace(/-/g, "")}`,
-      icon: (
-        <svg
-          className="w-3.5 h-3.5"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
+      icon: <Phone className="w-3.5 h-3.5" />,
+      content: (
+        <a
+          href={`tel:${personal.phone.replace(/[^+\d]/g, "")}`}
+          className="font-mono text-sm text-foreground/80 hover:text-violet-400 transition-colors"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498A1 1 0 0121 15.72V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-          />
-        </svg>
+          {personal.phone}
+        </a>
+      ),
+    },
+    {
+      icon: <User className="w-3.5 h-3.5" />,
+      content: (
+        <span className="font-mono text-sm text-foreground/80">{personal.pronouns}</span>
       ),
     },
   ];
 
   return (
-    <section className="py-8 border-b border-border/50">
-      <div className="flex flex-wrap gap-2">
+    <>
+      <section className="border-b border-border/50">
+        <div className="flex items-center gap-5 px-0 py-10 border-b border-border/50">
+          <div className="relative flex-shrink-0">
+            <button
+              onClick={() => setLightboxOpen(true)}
+              className="group relative block rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-500"
+              aria-label="View profile photo"
+            >
+              <img
+                src="/avatar.png"
+                alt={personal.name}
+                className="w-[80px] h-[80px] rounded-full object-cover object-top shadow-lg shadow-violet-500/20 ring-2 ring-violet-500/30 cursor-zoom-in transition-transform duration-200 group-hover:scale-105"
+              />
+              <span className="absolute inset-0 rounded-full bg-black/0 group-hover:bg-black/20 transition-colors duration-200" />
+            </button>
+            <span
+              className="absolute bottom-1 right-1 w-3 h-3 rounded-full bg-emerald-400 border-2 border-background animate-pulse"
+              title="Available for opportunities"
+            />
+          </div>
+
+          <div>
+            <h1 className="font-serif text-[2rem] leading-tight tracking-tight text-foreground">
+              {personal.name}
+            </h1>
+            <p className="text-sm text-muted-foreground mt-0.5">
+              {personal.role}
+            </p>
+          </div>
+        </div>
+
+        <div className="divide-y divide-border/50">
+          {infoRows.map((row, i) => (
+            <div key={i} className="flex items-center gap-4 px-1 py-3">
+              <span className="text-muted-foreground/50 flex-shrink-0 w-5 flex justify-center">
+                {row.icon}
+              </span>
+              {row.content}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {lightboxOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-md"
+          onClick={() => setLightboxOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Profile photo"
+          style={{ animation: "fadeIn 0.2s ease" }}
+        >
+          <button
+            className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+            onClick={() => setLightboxOpen(false)}
+            aria-label="Close"
+          >
+            <X className="w-5 h-5" />
+          </button>
+          <img
+            src="/avatar.png"
+            alt={personal.name}
+            className="max-w-sm w-full rounded-2xl shadow-2xl shadow-black/60 ring-2 ring-violet-500/40"
+            onClick={(e) => e.stopPropagation()}
+            style={{ animation: "zoomIn 0.25s cubic-bezier(0.34,1.56,0.64,1)" }}
+          />
+          <style>{`
+            @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+            @keyframes zoomIn { from { opacity: 0; transform: scale(0.7) } to { opacity: 1; transform: scale(1) } }
+          `}</style>
+        </div>
+      )}
+    </>
+  );
+}
+
+export function SocialLinks() {
+  const { github, linkedin } = personal;
+
+  const links = [
+    {
+      label: "GitHub",
+      href: github,
+      icon: <Github className="w-5 h-5" />,
+    },
+    {
+      label: "LinkedIn",
+      href: linkedin,
+      icon: <Linkedin className="w-5 h-5" />,
+    },
+  ];
+
+  return (
+    <section className="border-b border-border/50">
+      <div className="grid grid-cols-2 divide-x divide-y divide-border/50 border-t border-border/50">
         {links.map((l) => (
           <a
             key={l.label}
             href={l.href}
             target={l.href.startsWith("http") ? "_blank" : undefined}
             rel="noreferrer"
-            className="flex items-center gap-2 px-3.5 py-2 rounded-lg border border-border/60 bg-muted/30 font-mono text-xs text-muted-foreground hover:border-violet-500/50 hover:text-violet-400 hover:bg-violet-500/5 transition-all duration-200"
+            className="group flex items-center justify-between gap-3 px-5 py-4 font-mono text-sm text-muted-foreground hover:bg-violet-500/5 hover:text-violet-400 transition-all duration-200"
           >
-            {l.icon}
-            {l.label}
+            <span className="flex items-center gap-3">
+              {l.icon}
+              <span className="font-semibold">{l.label}</span>
+            </span>
+            <ArrowUpRight className="w-3.5 h-3.5 opacity-40 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200" />
           </a>
         ))}
       </div>

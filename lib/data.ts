@@ -2,11 +2,12 @@ export const personal = {
   name: "Harsh Makadiya",
   role: "Software Development Engineer",
   company: "Progressive Softtech",
-  location: "Surat, Gujarat, India",
-  email: "harshharsh312@gmail.com",
-  phone: "+91-9106905374",
-  github: "https://github.com/HarshMakadiya",
-  linkedin: "https://linkedin.com/in/harsh-makadiya",
+  companyUrl: "https://www.linkedin.com/company/progressive-softtech/",
+  location: "Gujarat, India",
+  email: process.env.NEXT_PUBLIC_EMAIL || "",
+  phone: process.env.NEXT_PUBLIC_PHONE || "",
+  github: process.env.NEXT_PUBLIC_GITHUB || "",
+  linkedin: process.env.NEXT_PUBLIC_LINKEDIN || "",
   pronouns: "he/him",
   tagline: "Building robust, scalable web applications — one well-crafted feature at a time. Shipping products that handle real load, real revenue, and real users.",
 };
@@ -50,7 +51,7 @@ export const experience = [
     role: "Software Development Engineer I",
     type: "Full-time",
     period: "Sep 2023 — Present",
-    location: "Surat, Gujarat, India",
+    location: "Rajkot, Gujarat, India",
     bullets: [
       {
         title: "Shipment Booking Application",
@@ -72,7 +73,7 @@ export const experience = [
     role: "Software Development Trainee",
     type: "Full-time",
     period: "Jan 2023 — Jul 2023",
-    location: "Surat, Gujarat, India",
+    location: "Ahmedabad, Gujarat, India",
     bullets: [
       {
         title: "Simply Shipping Protection",
@@ -104,7 +105,7 @@ export const projects = [
     description:
       "A full-featured blog platform where users can write, edit, and delete articles. Includes an admin dashboard with secure authentication for content management.",
     tags: ["Flask", "MySQL", "Python"],
-    github: "https://github.com/HarshMakadiya",
+    github: "https://github.com/HarshMakadiya/YourBlog",
     live: null,
   },
   {
@@ -112,8 +113,8 @@ export const projects = [
     description:
       "Secure, authenticated campsite listing web app with full CRUD, RESTful routing, and MongoDB — built for speed and a clean user experience.",
     tags: ["Node.js", "Express.js", "MongoDB", "JavaScript"],
-    github: "https://github.com/HarshMakadiya",
-    live: "#",
+    github: "https://github.com/HarshMakadiya/CampSite",
+    live: "https://campsites.onrender.com/",
   },
 ];
 

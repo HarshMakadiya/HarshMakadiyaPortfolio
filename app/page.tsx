@@ -11,7 +11,7 @@ import { Footer } from "@/components/Footer";
 export default function Home() {
   return (
     <>
-      {/* Ambient glow */}
+
       <div
         className="fixed inset-0 pointer-events-none z-0"
         style={{
@@ -23,15 +23,32 @@ export default function Home() {
       <Navbar />
 
       <main className="relative z-10 max-w-3xl mx-auto px-6">
-        <Hero />
-        <SocialLinks />
-        <About />
-        <Stack />
-        <Experience />
-        <Education />
-        <Projects />
-        <Achievements />
-        <Footer />
+
+        <div className="absolute left-6 top-0 bottom-0 pointer-events-none">
+          <div className="absolute left-0 top-0 bottom-0 w-px bg-border/50" />
+          <div className="absolute left-0 top-0 h-px w-3 bg-border/50" />
+          <div className="absolute left-0 bottom-0 h-px w-3 bg-border/50" />
+        </div>
+
+
+        <div className="absolute right-6 top-0 bottom-0 pointer-events-none">
+          <div className="absolute right-0 top-0 bottom-0 w-px bg-border/50" />
+          <div className="absolute right-0 top-0 h-px w-3 bg-border/50" />
+          <div className="absolute right-0 bottom-0 h-px w-3 bg-border/50" />
+        </div>
+
+
+        <div className="relative pl-6">
+          <Hero />
+          <SocialLinks />
+          <About />
+          <Stack />
+          <Experience />
+          <Education />
+          <Projects />
+          <Achievements />
+          <Footer />
+        </div>
       </main>
     </>
   );
